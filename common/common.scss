@@ -1,0 +1,58 @@
+.sidebar-wrapper {
+  &.chat-mode {
+    .sidebar-section {
+      &:not([data-section-name="chat-channels"]):not(
+          [data-section-name="chat-dms"]
+        ) {
+        display: none;
+      }
+    }
+
+    .chat-mode-toggle {
+      background: var(--tertiary);
+      color: var(--secondary);
+    }
+  }
+
+  &.forum-mode {
+    .sidebar-section {
+      &[data-section-name="chat-channels"],
+      &[data-section-name="chat-dms"] {
+        display: none;
+      }
+    }
+
+    .forum-mode-toggle {
+      background: var(--tertiary);
+      color: var(--secondary);
+    }
+  }
+}
+
+.sidebar-footer-wrapper {
+  .sidebar-footer-actions {
+    width: 100%;
+    display: flex;
+    margin-left: 0;
+  }
+}
+
+.sidebar-footer__mode-toggle {
+  display: flex;
+  margin-right: auto;
+  border: 1px solid var(--primar-medium);
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0.25em 0.5em;
+    color: var(--primary-high);
+
+    &:hover {
+      background: var(--tertiary-low);
+      color: var(--tertiary);
+    }
+  }
+  .chat-channel-unread-indicator {
+    margin-left: 0.25em;
+  }
+}
