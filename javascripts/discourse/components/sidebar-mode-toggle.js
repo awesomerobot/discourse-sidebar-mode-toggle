@@ -76,6 +76,7 @@ export default class SidebarModeToggle extends Component {
 
     if (defaultMode === "chat") {
       this.setChatMode();
+      this.openInFullPage();
     } else {
       this.setForumMode();
     }
@@ -92,7 +93,7 @@ export default class SidebarModeToggle extends Component {
 
   @action
   toggleMode(event) {
-    const clickedMode = event.target.textContent.trim().toLowerCase();
+    const clickedMode = event.target.closest("a").dataset.sidebarMode;
     if (clickedMode === this.currentMode) {
       return;
     }
@@ -104,12 +105,12 @@ export default class SidebarModeToggle extends Component {
       sidebarWrapper.classList.add("forum-mode");
       localStorage.setItem("lastMode", "forum");
       this.currentMode = "forum";
+      this.router.transitionTo(this.chatStateManager.lastKnownAppURL);
     } else if (this.currentMode === "forum") {
       sidebarWrapper.classList.remove("forum-mode");
       sidebarWrapper.classList.add("chat-mode");
       localStorage.setItem("lastMode", "chat");
       this.currentMode = "chat";
-
       this.openInFullPage();
     }
   }

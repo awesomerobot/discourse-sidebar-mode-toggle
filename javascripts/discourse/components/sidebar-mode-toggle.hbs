@@ -1,20 +1,19 @@
 {{#unless this.site.mobileView}}
-
   <div class="sidebar-footer__mode-toggle" {{did-insert this.setDefaultMode}}>
     <a
       class="forum-mode-toggle"
-      href="/"
       {{on "click" this.toggleMode}}
-    >Forum</a>
+      data-sidebar-mode="forum"
+    >{{d-icon "stream"}}</a>
     <a
       class="chat-mode-toggle"
-      href={{this.href}}
       {{on "click" this.toggleMode}}
-    >Chat
+      data-sidebar-mode="chat"
+    >
+      {{d-icon "d-chat"}}
       {{#unless this.currentUserInDnD}}
         <ChatHeaderIconUnreadIndicator />
-      {{/unless}}</a>
-
+      {{/unless}}
+    </a>
   </div>
-
 {{/unless}}
