@@ -7,12 +7,13 @@
         display: none;
       }
     }
-
-    .chat-mode-toggle {
-      background: var(--primary-low);
-      color: var(--primary-high);
-      .chat-channel-unread-indicator {
-        border: 2px solid var(--primary-low);
+    @if $toggle_mode == "double" {
+      .chat-mode-toggle {
+        background: var(--primary-low);
+        color: var(--primary-high);
+        .chat-channel-unread-indicator {
+          border: 2px solid var(--primary-low);
+        }
       }
     }
   }
@@ -25,9 +26,14 @@
       }
     }
 
-    .forum-mode-toggle {
-      background: var(--primary-low);
-      color: var(--primary-high);
+    @if $toggle_mode == "double" {
+      .forum-mode-toggle {
+        background: var(--primary-low);
+        color: var(--primary-high);
+        .chat-channel-unread-indicator {
+          border: 2px solid var(--primary-low);
+        }
+      }
     }
   }
 
@@ -46,7 +52,14 @@
 
 .sidebar-footer__mode-toggle {
   display: flex;
-  border-bottom: 1px solid var(--primary-low);
+
+  @if $toggle_position == "top" {
+    @if $toggle_mode == "double" {
+      border-bottom: 1px solid var(--primary-low);
+    }
+  } @else {
+    border-top: 1px solid var(--primary-low);
+  }
 
   a {
     display: flex;
@@ -59,6 +72,9 @@
     &:hover {
       background: var(--primary-low);
       color: var(--primary);
+      .chat-channel-unread-indicator {
+        border: 2px solid var(--primary-low);
+      }
     }
   }
   .chat-channel-unread-indicator {
@@ -74,5 +90,31 @@
     .number {
       display: none;
     }
+  }
+}
+
+@if $toggle_mode == "single" {
+  .sidebar-footer__mode-toggle {
+    padding: 0 1.3em;
+    margin: 1em 0;
+    @if $toggle_position == "top" {
+      margin: 1em 0 0;
+    }
+    border-top: none;
+
+    a {
+      background: var(--primary-low);
+    }
+
+    .chat-channel-unread-indicator {
+      border-color: var(--primary-low);
+    }
+  }
+}
+
+@if $toggle_position == "bottom" {
+  // hide scroll fade for now
+  .sidebar-footer-wrapper .sidebar-footer-container::before {
+    display: none;
   }
 }

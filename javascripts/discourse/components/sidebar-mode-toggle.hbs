@@ -1,19 +1,52 @@
 {{#unless this.site.mobileView}}
   <div class="sidebar-footer__mode-toggle" {{did-insert this.setDefaultMode}}>
-    <a
-      class="forum-mode-toggle"
-      {{on "click" this.toggleMode}}
-      data-sidebar-mode="forum"
-    >{{d-icon "stream"}}</a>
-    <a
-      class="chat-mode-toggle"
-      {{on "click" this.toggleMode}}
-      data-sidebar-mode="chat"
-    >
-      {{d-icon "d-chat"}}
-      {{#unless this.currentUserInDnD}}
-        <ChatHeaderIconUnreadIndicator />
-      {{/unless}}
-    </a>
+
+    {{#if (eq (theme-setting "toggle_mode") "double")}}
+      <a
+        class="forum-mode-toggle"
+        {{on "click" this.toggleMode}}
+        data-sidebar-mode="forum"
+      >
+        {{d-icon "university"}}
+        {{#unless this.currentUserInDnD}}
+          {{#if this.unreadTopicCount}}
+            <div class="chat-channel-unread-indicator"></div>
+          {{/if}}
+        {{/unless}}
+      </a>
+      <a
+        class="chat-mode-toggle"
+        {{on "click" this.toggleMode}}
+        data-sidebar-mode="chat"
+      >
+        {{d-icon "d-chat"}}
+        {{#unless this.currentUserInDnD}}
+          <ChatHeaderIconUnreadIndicator />
+        {{/unless}}
+      </a>
+
+    {{else}}
+      <a
+        class="chat-mode-toggle"
+        {{on "click" this.toggleMode}}
+        data-sidebar-mode={{if (eq this.currentMode "forum") "chat" "forum"}}
+      >
+        {{#if (eq this.currentMode "chat")}}
+          {{d-icon "university"}}
+        {{else}}
+          {{d-icon "d-chat"}}
+        {{/if}}
+
+        {{#unless this.currentUserInDnD}}
+          {{#if (eq this.currentMode "forum")}}
+            <ChatHeaderIconUnreadIndicator />
+          {{else}}
+            {{#if this.unreadTopicCount}}
+              <div class="chat-channel-unread-indicator"></div>
+            {{/if}}
+          {{/if}}
+        {{/unless}}
+      </a>
+    {{/if}}
   </div>
 {{/unless}}
